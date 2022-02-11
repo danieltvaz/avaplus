@@ -1,20 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from "react-native";
+
+import { NavigationContainer } from "@react-navigation/native";
+import { Picker } from "@react-native-picker/picker";
+import { StatusBar } from "expo-status-bar";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useState } from "react";
 
 export default function App() {
+  const [select, setSelect] = useState("ADS");
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+    <View>
+      <Picker mode="dropdown" selectedValue={select} onValueChange={(itemValue) => setSelect(itemValue)}>
+        <Picker.Item label="ADS" value="Análise e desenvolvimento de sistemas" />
+        <Picker.Item label="GPI" value="Gestão da produção Industrial" />
+      </Picker>
       <StatusBar style="auto" />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
