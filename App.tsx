@@ -1,4 +1,4 @@
-import { StyleSheet, Text, SafeAreaView } from "react-native";
+import { FlatList, SafeAreaView } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { Picker } from "@react-native-picker/picker";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -19,7 +19,7 @@ export default function App(): JSX.Element {
     requestData();
   }, []);
 
-  useEffect(() => console.warn(selectedCourse), [selectedCourse]);
+  // useEffect(() => console.warn(selectedCourse), [selectedCourse]);
 
   return (
     <SafeAreaView>
@@ -36,11 +36,10 @@ export default function App(): JSX.Element {
           )
         )}
       </Picker>
-      {extractDisciplines(data?.[selectedCourse])?.map(
-        (discipline: Discipline, index: number): JSX.Element => (
-          <DisciplineCard discipline={discipline} key={index} />
-        )
-      )}
+      <FlatList
+        data={extractDisciplines(data?.[selectedCourse])}
+        renderItem={({ item, index }: { item: Discipline; index: number }) => <DisciplineCard discipline={item} key={index} />}
+      />
     </SafeAreaView>
   );
 }
