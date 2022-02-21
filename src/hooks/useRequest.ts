@@ -7,10 +7,14 @@ type Request = (url?: string) => Promise<void>;
 export default function useRequest<T>(): [T | undefined, Request] {
   const [data, setData] = useState<T>();
 
-  // como evitar q o resultado seja undefined
-  // pode ser, mas nao quer dizer que deve ser
-
   async function requestData(url: string = "data.json"): Promise<void> {
+    // try {
+    //   const request = await axios.get(url);
+    //   setData(request.data);
+    // } catch (e) {
+    //   console.warn(e);
+    // }
+
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(setData(api as unknown as T));
@@ -27,3 +31,6 @@ export default function useRequest<T>(): [T | undefined, Request] {
 // } catch (e) {
 //   console.warn(e);
 // }
+
+// como evitar q o resultado seja undefined
+// pode ser, mas nao quer dizer que deve ser

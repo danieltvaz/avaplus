@@ -1,8 +1,9 @@
-import { FlatList, SafeAreaView } from "react-native";
+import { Dimensions, FlatList, SafeAreaView } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { Picker } from "@react-native-picker/picker";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useEffect, useState } from "react";
+import { StatusBar } from "react-native";
 
 import { Course, Discipline } from "./src/types/Types";
 
@@ -22,9 +23,12 @@ export default function App(): JSX.Element {
   // useEffect(() => console.warn(selectedCourse), [selectedCourse]);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ padding: 8, flex: 1, backgroundColor: "#1A254E" }}>
+      <StatusBar barStyle={"default"} />
       <Picker
-        mode="dialog"
+        style={{ color: "white" }}
+        dropdownIconColor={"white"}
+        mode="dropdown"
         selectedValue={selectedCourse}
         onValueChange={(itemValue, itemIndex) => {
           setSelectedCourse(itemValue);
