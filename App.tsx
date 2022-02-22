@@ -1,49 +1,36 @@
-import { Dimensions, FlatList, SafeAreaView } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { Picker } from "@react-native-picker/picker";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { useEffect, useState } from "react";
-import { StatusBar } from "react-native";
 
-import { Course, Discipline } from "./src/types/Types";
+import { StatusBar, SafeAreaView } from "react-native";
+
+import { Course } from "./src/types/Types";
 
 import useRequest from "./src/hooks/useRequest";
-import extractCourses, { NewCourse } from "./src/utils/extractCourses";
-import extractDisciplines from "./src/utils/extractDisciplines";
-import DisciplineCard from "./src/components/DisciplineCard";
+
+import Home from "./src/views/Home/Home";
+import Login from "./src/views/Login/Login";
+import { useEffect } from "react";
+
+import Reactotron from "reactotron-react-native";
+
+Reactotron.configure() // AsyncStorage would either come from `react-native` or `@react-native-community/async-storage` depending on where you get it from // controls connection & communication settings
+  .useReactNative() // add all built-in react native plugins
+  .connect(); // let's connect!
 
 export default function App(): JSX.Element {
   const [data, requestData] = useRequest<Course[]>();
-  const [selectedCourse, setSelectedCourse] = useState<number>(0);
 
-  useEffect(() => {
-    requestData();
-  }, []);
+  const requestDataWithCredentials = (username: string, password: string): void => {
+    requestData("http://192.168.209.1:5000/courses", { username, password });
+  };
 
-  // useEffect(() => console.warn(selectedCourse), [selectedCourse]);
+  useEffect(() => console.log(data), [data]);
 
   return (
-    <SafeAreaView style={{ padding: 8, flex: 1, backgroundColor: "#1A254E" }}>
+    <SafeAreaView style={{ padding: 8, flex: 1, backgroundColor: "#1a254ed5" }}>
       <StatusBar barStyle={"default"} />
-      <Picker
-        style={{ color: "white" }}
-        dropdownIconColor={"white"}
-        mode="dropdown"
-        selectedValue={selectedCourse}
-        onValueChange={(itemValue, itemIndex) => {
-          setSelectedCourse(itemValue);
-        }}
-        key={1}>
-        {extractCourses(data)?.map(
-          (course: NewCourse, index: number): JSX.Element => (
-            <Picker.Item label={course.course} value={course.id} key={index} />
-          )
-        )}
-      </Picker>
-      <FlatList
-        data={extractDisciplines(data?.[selectedCourse])}
-        renderItem={({ item, index }: { item: Discipline; index: number }) => <DisciplineCard discipline={item} key={index} />}
-      />
+      {/* <Home data={data} /> */}
+      <Login buttonFunction={requestDataWithCredentials} />
     </SafeAreaView>
   );
 }
