@@ -1,17 +1,14 @@
 import { useState } from "react";
 import { Button } from "react-native";
 import { CredentialsInput, CredentialsLabel, LoginContainer, Logo } from "./styles";
+import { NavigationProp } from "@react-navigation/native";
 
-type LoginProps = {
-  buttonFunction: (login: string, password: string) => void;
-};
-
-export default function Login({ buttonFunction }: LoginProps): JSX.Element {
+export default function Login({ navigation }: { navigation: NavigationProp<any> }): JSX.Element {
   const [username, setLogin] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    if (username && password) buttonFunction(username, password);
+    if (username && password) navigation.navigate("Home", { username: username, password: password });
   };
 
   return (

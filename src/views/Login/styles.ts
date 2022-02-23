@@ -4,6 +4,7 @@ const LoginContainer = styled.View`
   flex: 1;
   justify-content: center;
   padding: 30px;
+  background-color: #1a254ed5;
 `;
 
 const CredentialsInput = styled.TextInput`
