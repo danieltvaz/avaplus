@@ -17,7 +17,7 @@ type RootStackParamList = {
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
-
+``;
 export default function App(): JSX.Element {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#1a254e" }}>

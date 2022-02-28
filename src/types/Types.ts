@@ -1,30 +1,23 @@
-type Activity = {
-  code: string[];
-  completeness: null | string;
-  grade: null | {
-    current: string;
-    total: string;
-  };
+type Semester = {
+  matriculation_id: string;
+  semester_number: string;
+  semester_name: string;
+};
+
+type Course = {
   name: string;
-  period: {
-    final: string;
-    init: string;
-  };
+  semesters: Semester[];
+};
+
+type Activity = {
+  name: string;
+  date: { end: string; init: string };
 };
 
 type Discipline = {
   name: string;
-  panels: Activity[];
+  report_card_id: string;
+  activities: Activity[];
 };
 
-type Semester = {
-  $activitiesId: string;
-  subjects: Discipline[];
-};
-
-type Course = {
-  course: string;
-  semesters: Semester[];
-};
-
-export { Activity, Discipline, Semester, Course };
+export { Semester, Course, Discipline, Activity };
