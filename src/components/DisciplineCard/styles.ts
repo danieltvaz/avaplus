@@ -23,33 +23,4 @@ const DisciplineCardTitle = styled.Text`
   ${{ textAlignVertical: "center" }};
 `;
 
-const ActivitiesItem = styled.View`
-  flex: 1;
-  justify-content: flex-start;
-  padding: 8px;
-
-  ${{ textAlignVertical: "top" }};
-`;
-
-const ActivitiesName = styled.Text`
-  font-size: 14px;
-  color: white;
-`;
-
-type PeriodProps = {
-  limitDate: boolean | undefined;
-};
-
-const ActivitiesPeriod = styled.Text<PeriodProps>`
-  color: ${({ limitDate }) => (limitDate ? "red" : "white")};
-`;
-
-const ActivitiesProgress = styled.Text`
-  color: white;
-`;
-
-const ActivitiesGrade = styled.Text`
-  color: white;
-`;
-
-export { DisciplineCardContainer, DisciplineCardTitle, ActivitiesItem, ActivitiesName, ActivitiesPeriod, ActivitiesProgress, ActivitiesGrade };
+export { DisciplineCardContainer, DisciplineCardTitle };
