@@ -2,7 +2,7 @@
   "expo": {
     "name": "Ava Plus",
     "slug": "ava-plus",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "privacy": "unlisted",
@@ -19,8 +19,8 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.yourcompany.avaplus",
-      "versionCode": 1,
+      "package": "com.sixmtech.avaplus",
+      "versionCode": 2,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
