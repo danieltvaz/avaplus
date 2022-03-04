@@ -38,7 +38,9 @@ export default function Home({ route }: Props) {
       <CoursePicker selectedCourseId={selectedCourseId} setSelectedCourseId={setSelectedCourseId} />
       <FlatList
         data={disciplines}
-        renderItem={({ item, index }: { item: Discipline; index: number }) => <DisciplineCard discipline={item} key={index} />}
+        renderItem={({ item, index }: { item: Discipline; index: number }) => (
+          <DisciplineCard discipline={item} courseId={selectedCourseId} key={index} />
+        )}
         keyExtractor={(item) => item.report_card_id}
       />
     </HomeWrapper>
