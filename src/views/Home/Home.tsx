@@ -31,8 +31,10 @@ export default function Home({ route }: Props) {
       const cachedDisciplines = await getCachedDisciplines(selectedCourseId);
       if (cachedDisciplines && cachedDisciplines.length > 0) {
         setDisciplines(cachedDisciplines);
+        console.log("cache disciplines");
       } else {
         await requestDisciplines(`http://192.168.0.100:5000/dashboard/subjects/${selectedCourseId}`, { username, password });
+        console.log("fetch disciplines");
       }
     } catch (e) {}
   }

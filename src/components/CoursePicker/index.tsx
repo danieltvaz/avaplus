@@ -15,15 +15,17 @@ export default function CoursePicker({ selectedCourseId, setSelectedCourseId }: 
 
   async function handleCourseListSource() {
     try {
-      const cachedCourseList = await getCoursesList(selectedCourseId);
+      const fetchCourses = await axios.get("http://192.168.0.100:5000/index/courses", { data: { username: "14162648760", password: "Ava12345" } });
+      setCourses(fetchCourses.data);
+      saveCoursesList("coursesList", fetchCourses.data);
+      console.log("fetch course list");
+    } catch (e) {
+      const cachedCourseList = await getCoursesList("coursesList");
       if (cachedCourseList && cachedCourseList.length > 0) {
         setCourses(cachedCourseList);
-      } else {
-        const fetchCourses = await axios.get("http://192.168.0.100:5000/index/courses", { data: { username: "14162648760", password: "Ava12345" } });
-        saveCoursesList("coursesList", fetchCourses.data);
-        setCourses(fetchCourses.data);
+        console.log("cache course list");
       }
-    } catch (e) {}
+    }
   }
 
   useEffect(() => {
