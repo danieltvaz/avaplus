@@ -17,6 +17,7 @@ type Activity = {
 type Discipline = {
   name: string;
   report_card_id: string;
+  discipline_offer_id: string;
   activities: Activity[];
 };
 

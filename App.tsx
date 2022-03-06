@@ -7,7 +7,8 @@ import { Course } from "./src/types/Types";
 import Home from "./src/views/Home/Home";
 import Login from "./src/views/Login/Login";
 
-import Reactotron from "reactotron-react-native";
+import Reactotron, { asyncStorage } from "reactotron-react-native";
+import Debug from "./src/views/Debug";
 
 Reactotron.configure().useReactNative().connect();
 
