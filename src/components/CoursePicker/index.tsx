@@ -5,13 +5,19 @@ import useRequest from "../../hooks/useRequest";
 import handleSource from "../../utils/handleStorage";
 import { ToastAndroid } from "react-native";
 import axios from "axios";
+import { useNavigation, CompositeNavigationProp } from "@react-navigation/native";
 
+type RootStackParamList = {
+  Login?: undefined;
+  Home: { username: string; password: string };
+};
 type CoursePickerProps = { selectedCourseId: string; setSelectedCourseId: (courseId: string) => void };
 
 const [saveCoursesList, getCoursesList] = handleSource<Course[]>();
 
 export default function CoursePicker({ selectedCourseId, setSelectedCourseId }: CoursePickerProps) {
   const [courses, requestCourses, setCourses] = useRequest<Course[]>();
+  const navigation = useNavigation<any>();
 
   async function handleCourseListSource() {
     try {
@@ -24,6 +30,9 @@ export default function CoursePicker({ selectedCourseId, setSelectedCourseId }: 
       if (cachedCourseList && cachedCourseList.length > 0) {
         setCourses(cachedCourseList);
         console.log("cache course list");
+      } else {
+        ToastAndroid.showWithGravity("Ops! Algo deu errado, tente novamente mais tarde", ToastAndroid.LONG, ToastAndroid.CENTER);
+        navigation.navigate("Login");
       }
     }
   }

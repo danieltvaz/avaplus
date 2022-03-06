@@ -10,7 +10,7 @@ import DisciplineCard from "../../components/DisciplineCard";
 import handleStorage from "../../utils/handleStorage";
 
 type RootStackParamList = {
-  Login?: object;
+  Login?: undefined;
   Home: { username: string; password: string };
 };
 
@@ -18,25 +18,31 @@ type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
 const [saveDisciplines, getCachedDisciplines] = handleStorage<Discipline[]>();
 
-export default function Home({ route }: Props) {
+export default function Home({ route, navigation }: Props) {
   const [disciplines, requestDisciplines, setDisciplines] = useRequest<Discipline[]>();
-  const [isLoading, setIsActive] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [softLoading, setSoftLoading] = useState(false);
   const [selectedCourseId, setSelectedCourseId] = useState<string>("");
 
   const { username, password } = route.params;
 
   async function handleCourseSource() {
+    setIsLoading(true);
     try {
       const cachedDisciplines = await getCachedDisciplines(selectedCourseId);
       if (cachedDisciplines && cachedDisciplines.length > 0) {
         setDisciplines(cachedDisciplines);
+        setIsLoading(false);
         console.log("cache disciplines");
       } else {
         await requestDisciplines(`http://192.168.0.100:5000/dashboard/subjects/${selectedCourseId}`, { username, password });
+        setIsLoading(false);
         console.log("fetch disciplines");
       }
-    } catch (e) {}
+    } catch (e) {
+      setIsLoading(false);
+      navigation.navigate("Login");
+    }
   }
 
   async function refreshList() {
@@ -55,7 +61,7 @@ export default function Home({ route }: Props) {
 
   useEffect(() => {
     if (selectedCourseId && disciplines && disciplines.length > 0) {
-      setIsActive(false);
+      setIsLoading(false);
       saveDisciplines(selectedCourseId, disciplines);
     }
   }, [disciplines]);
