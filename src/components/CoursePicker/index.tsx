@@ -24,12 +24,10 @@ export default function CoursePicker({ selectedCourseId, setSelectedCourseId }: 
       const fetchCourses = await axios.get("http://192.168.0.100:5000/index/courses", { data: { username: "14162648760", password: "Ava12345" } });
       setCourses(fetchCourses.data);
       saveCoursesList("coursesList", fetchCourses.data);
-      console.log("fetch course list");
     } catch (e) {
       const cachedCourseList = await getCoursesList("coursesList");
       if (cachedCourseList && cachedCourseList.length > 0) {
         setCourses(cachedCourseList);
-        console.log("cache course list");
       } else {
         ToastAndroid.showWithGravity("Ops! Algo deu errado, tente novamente mais tarde", ToastAndroid.LONG, ToastAndroid.CENTER);
         navigation.navigate("Login");

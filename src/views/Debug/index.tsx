@@ -12,10 +12,8 @@ export default function Debug() {
 
   async function renderStorage() {
     const cachedDisciplines = (await getDisciplines("3000411703")) ?? undefined;
-    console.log(cachedDisciplines);
     setDisciplines(cachedDisciplines);
     const cachedCoursesList = (await getCoursesList("coursesList")) ?? undefined;
-    console.log(cachedCoursesList);
     setCoursesList(cachedCoursesList);
   }
 

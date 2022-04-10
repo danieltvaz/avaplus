@@ -11,8 +11,6 @@ type DisciplineCardProps = {
   courseId: string;
 };
 
-const IGNORE_LIST = ["Aa1", "Aa2", "Aa3", "Aa4", "Ta1", "Ta2", "Ta3", "Ta4"];
-
 export default function DisciplineCard({ discipline, courseId }: DisciplineCardProps): JSX.Element {
   return (
     <DisciplineCardContainer style={{ elevation: 7 }}>
